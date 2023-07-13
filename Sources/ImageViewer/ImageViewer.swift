@@ -63,7 +63,7 @@ public struct ImageViewComponent<Content: View>: View {
     let urlCache: URLCache
     @ViewBuilder var content: Content
     
-    public init(url: URL, @ViewBuilder content: ()->Content, urlCache: URLCache = .shared) {
+    public init(url: URL, urlCache: URLCache = .shared, @ViewBuilder content: ()->Content) {
         self.url = url
         self.urlCache = urlCache
         self.content = content()
