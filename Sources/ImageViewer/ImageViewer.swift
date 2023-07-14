@@ -88,8 +88,9 @@ public struct ImageViewComponent<Content: View>: View {
             Color.black.opacity(opactity)
             CachedAsyncImage(url: url, urlCache: urlCache) { image in
                 let renderer = ImageRenderer(content: image)
-                if let uiImage = renderer.uiImage?.resized(toWidth: UIScreen.main.bounds.width) {
-                    ZoomableImage(image: uiImage, minScaleFactor: 1, idealScaleFactor: 1, maxScaleFactor: 5)
+                if let uiImage = renderer.uiImage {
+                    let scaleFactor = UIScreen.main.bounds.width / uiImage.size.width
+                    ZoomableImage(image: uiImage, minScaleFactor: scaleFactor, idealScaleFactor: scaleFactor, maxScaleFactor: 5 * scaleFactor)
                         .offset(offset)
                         .onTapGesture {}
                         .gesture(DragGesture().onChanged { gesture in
@@ -169,16 +170,5 @@ extension UIView {
 extension CGSize {
     var magnitude: Double {
         return sqrt(pow(width, 2) + pow(height, 2))
-    }
-}
-
-extension UIImage {
-    func resized(toWidth width: CGFloat, isOpaque: Bool = true) -> UIImage? {
-        let canvas = CGSize(width: width, height: CGFloat(ceil(width / size.width * size.height)))
-        let format = imageRendererFormat
-        format.opaque = isOpaque
-        return UIGraphicsImageRenderer(size: canvas, format: format).image {
-            _ in draw(in: CGRect(origin: .zero, size: canvas))
-        }
     }
 }
