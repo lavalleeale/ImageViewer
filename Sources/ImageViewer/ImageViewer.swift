@@ -106,6 +106,7 @@ public struct ImageViewComponent<Content: View>: View {
                         })
                         .overlay(alignment: .bottom) {
                             content
+                                .foregroundStyle(.white)
                         }
                         .opacity(opactity)
                 }
