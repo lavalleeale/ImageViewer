@@ -122,11 +122,10 @@ public struct ImageViewComponent<Content: View>: View {
                 Image(systemName: "xmark")
                     .resizable()
                     .frame(width: 24, height: 24)
+                    .padding([.leading], 24)
+                    .padding([.bottom, .trailing], 48)
             }
             .statusBar(hidden: true)
-            .padding([.top, .leading], 24)
-            .padding([.bottom, .trailing], 48)
-            .ignoresSafeArea()
             .labelStyle(.iconOnly)
             .contentShape(Rectangle())
             .onTapGesture {
