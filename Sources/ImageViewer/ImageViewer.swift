@@ -125,8 +125,10 @@ public struct ImageViewComponent<Content: View>: View {
             }
             .statusBar(hidden: true)
             .padding([.top, .leading], 24)
+            .padding([.bottom, .trailing], 48)
             .ignoresSafeArea()
             .labelStyle(.iconOnly)
+            .contentShape(Rectangle())
             .onTapGesture {
                 self.showing = false
             }
